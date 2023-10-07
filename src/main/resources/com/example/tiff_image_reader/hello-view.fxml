@@ -1,16 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.control.Button?>
-<VBox alignment="CENTER" spacing="20.0" xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.example.tiff_image_reader.HelloController">
-    <padding>
-        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
-    </padding>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-    <Label fx:id="welcomeText"/>
-    <Button text="Hello!" onAction="#onHelloButtonClick"/>
-</VBox>
+<AnchorPane prefHeight="600.0" prefWidth="800.0" style="-fx-background-color: skyblue;" xmlns="http://javafx.com/javafx/null" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.tiff_image_reader.HelloController">
+   <children>
+
+                   <Label fx:id="welcomeText" layoutX="343.0" layoutY="30.0" prefHeight="27.0" prefWidth="138.0" text="TIFF IMAGE READER" textAlignment="CENTER">
+         <font>
+            <Font name="Franklin Gothic Demi Cond" size="18.0" />
+         </font></Label>
+       <Button layoutX="368.0" layoutY="547.0" onAction="#onHelloButtonClick" prefHeight="38.0" prefWidth="87.0" text="Open File" />
+      <ImageView fx:id="imageView1" fitHeight="343.0" fitWidth="553.0" layoutX="136.0" layoutY="86.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="exitButton" layoutX="14.0" layoutY="559.0" mnemonicParsing="false" onAction="#exitProgram" prefHeight="25.0" prefWidth="57.0" text="Exit">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>
