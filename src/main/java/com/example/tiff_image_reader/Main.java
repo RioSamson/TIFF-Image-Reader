@@ -1,3 +1,5 @@
+package com.example.tiff_image_reader;
+
 import com.example.tiff_image_reader.HelloController;
 import com.example.tiff_image_reader.TiffReader;
 
