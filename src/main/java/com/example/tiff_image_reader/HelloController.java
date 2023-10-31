@@ -22,18 +22,18 @@ public class HelloController {
 
     @FXML
     ImageView imageView1;
-//    @FXML
-//    Button exitButton;
+    @FXML
+    ImageView imageView2;
 
     @FXML
     protected void onHelloButtonClick() {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Select your wav file");
         fileChooser.getExtensionFilters().addAll(new FileChooser.ExtensionFilter("TIFF Images", "*.tif", "*.tiff"));
-        File tiffFile =  fileChooser.showOpenDialog(null);
-
-//        fileChooser.setInitialDirectory(new File("C:\\Users\\User\\Downloads\\test samples\\test samples\\Q2"));
 //        File tiffFile =  fileChooser.showOpenDialog(null);
+
+        fileChooser.setInitialDirectory(new File("C:\\Users\\User\\Downloads\\test samples\\test samples\\Q2"));
+        File tiffFile =  fileChooser.showOpenDialog(null);
 
 //        RenderableGraphics
         if(tiffFile != null){
@@ -54,6 +54,8 @@ public class HelloController {
 //                imageView1.setFitHeight(imageHeight/1.5);
 //                imageView1.setFitWidth(imageWidth/1.5);
                 imageView1.setImage(writableImage);
+
+                imageView2.setImage(writableImage);
 
             } catch (IOException e) {
                 System.out.println("Error reading File");
