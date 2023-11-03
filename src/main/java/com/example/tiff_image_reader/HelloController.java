@@ -18,6 +18,8 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
+import static java.lang.Math.ceil;
+
 
 public class HelloController {
 
@@ -159,17 +161,68 @@ public class HelloController {
             WritableImage writableImage2 = new javafx.scene.image.WritableImage(imageWidth, imageHeight);
             PixelWriter pixelWriter2 = writableImage2.getPixelWriter();
 
-            //Making the greyscale image
-            for (int x = 0; x < imageWidth; x++) {
-                for (int y = 0; y < imageHeight; y++) {
-                    int argb = bufferedImage2.getRGB(x, y)/2;
-                    pixelWriter2.setArgb(x, y, argb);
+            int n = 5;
+            int ditherFactor = (int) (255/(n*n));
+            //making the dither matrix
+//            int[][] ditherMatrix = {{0, 8, 2, 10},
+//                    {12, 4, 14, 6},
+//                    {3, 11, 1, 9},
+//                    {15, 7, 13, 5}};
+
+//            int[][] ditherMatrix = {{0, 23, 11, 25,  1}, //bayern matrix 5x5
+//                    {31, 15,  7, 27,  3},
+//                    {13 , 9, 33 ,21 ,17},
+//                            {29 , 5 ,19 ,35 , 8},
+//                                    {2 ,28, 14, 32, 18}};
+
+//            int[][] ditherMatrix = {
+//                    {13 , 8,  4, 15, 12}, //chatgpt random matrix
+//                    {0 , 7 ,18 ,11 ,20},
+//                    {9 ,24 ,16 , 2 , 5},
+//                    {21, 10 ,19 ,14 , 3},
+//                    {6 ,22, 17, 23,  1}};
+//
+//            int[][] ditherMatrix = { //truly random matrix
+//                    {6 ,19 ,23 , 9 ,22},
+//                    {15,7  ,20 ,11 ,18},
+//                    {4 ,16 ,12 ,2  ,13},
+//                    {8 ,3  ,1  ,5  ,14},
+//                    {21,0  ,24 ,10 ,17}};
+
+            int[][] ditherMatrix = { //self made random matrix
+                    {7,11,0,24,2},{9,21,5,19,16},{3,13,1,23,10},{14,8,12,18,6},{22,15,20,17,4}
+            };
+
+//            int[][] ditherMatrix = { //self made random matrix
+//                    {7,11,0,24,32, 25},{9,21,5,26,19,16,},{3,33,28,1,23,34},{27,14,8,12,18,6},{22,15,35,31,17,4}, {30,29, 2, 13, 10,20}
+//            };
+
+
+            for(int x=0; x<imageWidth; x++){ //for each x for each dither matrix square
+                for(int y=0; y<imageHeight; y++){ //for each y for each dither matrix square
+                    int i = x%n;
+                    int j = y%n;
+                    //Reading the rgb value from the grayscale image, not the original cuz r=g=b
+                    int argb = bufferedImage2.getRGB(x, y);
+                    int r = (argb >> 16) & 0xff;
+                    int g = (argb >> 8) & 0xff;
+                    int b = argb & 0xff;
+                    int gray = (r + g + b) / 3;
+
+                    int grayscaleArgb;
+                    if((gray/ditherFactor) > ditherMatrix[i][j]){
+                        grayscaleArgb = (0xFF << 24) | (255 << 16) | (255 << 8) | 255;
+                    } else{
+                        grayscaleArgb = (0xFF << 24) | (0 << 16) | (0 << 8) | 0;
+                    }
+                    pixelWriter2.setArgb(x, y, grayscaleArgb);
+
                 }
             }
 
             imageView2.setImage(writableImage2);
             refreshNumber++;
-        } else if (refreshNumber == 2) {
+        } else if (refreshNumber == 2) { //auto level
 
         }
     }
