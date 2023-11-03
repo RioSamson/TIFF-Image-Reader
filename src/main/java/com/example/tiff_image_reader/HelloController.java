@@ -193,6 +193,10 @@ public class HelloController {
                     {7,11,0,24,2},{9,21,5,19,16},{3,13,1,23,10},{14,8,12,18,6},{22,15,20,17,4}
             };
 
+//            int[][] ditherMatrix = { //self made random matrix
+//                    {7,11,0,24,32, 25},{9,21,5,26,19,16,},{3,33,28,1,23,34},{27,14,8,12,18,6},{22,15,35,31,17,4}, {30,29, 2, 13, 10,20}
+//            };
+
 
             for(int x=0; x<imageWidth; x++){ //for each x for each dither matrix square
                 for(int y=0; y<imageHeight; y++){ //for each y for each dither matrix square
@@ -215,14 +219,6 @@ public class HelloController {
 
                 }
             }
-
-            //Making the greyscale image
-//            for (int x = 0; x < imageWidth; x++) {
-//                for (int y = 0; y < imageHeight; y++) {
-//                    int argb = bufferedImage2.getRGB(x, y)/2;
-//                    pixelWriter2.setArgb(x, y, argb);
-//                }
-//            }
 
             imageView2.setImage(writableImage2);
             refreshNumber++;
